@@ -15,7 +15,7 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 
 @app.route("/")
 def hello():
-    return "Hello world... again. How are you? im good thanks"
+    return "Hello world... again. How are you? im good thanks last time"
 
 
 if __name__ == "__main__":
