@@ -1,1 +1,3 @@
-web: pyhton app.py
+web:
+pyhton
+app.py
