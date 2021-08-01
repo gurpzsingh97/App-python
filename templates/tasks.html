@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if session.user|lower == "" %}
+<h1 class="center-align light-blue-text text-darken-4">Welcome to Task Manager</h1><br>
+<br>
+<h5 class="center-align"><a href="{{ url_for('login') }}" class="light-blue-text text-darken-4">Log In</a> or
+     <a href="{{ url_for('register') }}" class="light-blue-text text-darken-4">Sign Up</a> to create your own tasks.</h5><br>
+
+
+{% else %}
+
 <h3 class="light-blue-text text-darken-4 center-align">All Tasks</h3>
 {% for task in tasks %}
 {% if session.user|lower == task.created_by|lower %}
@@ -10,7 +19,16 @@
         <div class="collapsible-header white-text light-blue darken-4 text-shadow">
             <div class="col s3">
                 <i class="fas fa-caret-down"></i>
-                <a href="" class="btn-small green accent-4">Done</a>
+                <a href="#modal1" class="btn-small green accent-4 modal-trigger">Done</a>
+                <div id="modal1" class="modal">
+                    <div class="modal-content black-text text-shadow-none">
+                        <h4>Are you sure that you are done with this task?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close btn-small green accent-4">Cancel</a>
+                        <a href="{{ url_for('delete_task', task_id=task._id) }}" class="modal-close btn-small red accent-4">Yes</a>
+                    </div>
+                </div>
                 <a href="{{ url_for('edit_task', task_id=task._id) }}" class="btn-small green accent-4">Edit</a>
             </div>
             <div class="col s9">
@@ -29,7 +47,7 @@
     </li>
     
 </ul>
-{% else %}
 {% endif %}
 {% endfor %}
+{% endif %}
 {% endblock %}
